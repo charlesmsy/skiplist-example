@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Text;
 
 namespace skip_list_example
 {
-    class SkipList
+    class SkipListConsoleOutput
     {
         private int maxLevel;
         private SLNode header;
         private SLNode sentinel;
+        private int count = 0;
         
         class SLNode
         {
@@ -23,7 +25,7 @@ namespace skip_list_example
             }
         }
 
-        public SkipList(int maxLevel)
+        public SkipListConsoleOutput(int maxLevel)
         {
             this.maxLevel = maxLevel;
 
@@ -82,6 +84,9 @@ namespace skip_list_example
                 update[i].forward[i] = sLNode;
             }
 
+            // update the count of items in the list
+            // this is a nice to have and not necessary
+            count++;
         }
 
         public void Delete(int target)
@@ -100,6 +105,7 @@ namespace skip_list_example
                 {
                     targetNode = cur.forward[i];
                     cur.forward[i] = targetNode.forward[i];
+                    count--;
                 }
             }
         }
@@ -117,15 +123,60 @@ namespace skip_list_example
             return newlevel;
         }
 
-        public void PrintListContents()
+
+        public void PrintGraphicalList()
         {
             SLNode cur = header;
+            int[] items = new int[count];
+            int[] lengths = new int[count];
+            int[] heights = new int[count];
+            int counter = 0;
+            StringBuilder stringBuilder = new StringBuilder();
 
             while (cur.forward[0].forward[0] != null)
             {
-                Console.WriteLine("key: {0} height: {1}", cur.forward[0].key, cur.forward[0].height);
+                items[counter] = cur.forward[0].key;
+
+                if (cur.forward[0].key < 10)
+                {
+                    lengths[counter] = 1;
+                }
+                else if (cur.forward[0].key < 100)
+                {
+                    lengths[counter] = 2;
+                }
+                else
+                {
+                    lengths[counter] = 3;
+                }
+
+                heights[counter] = cur.forward[0].height;
+
+                counter++;
                 cur = cur.forward[0];
+                //Console.WriteLine(cur.key);
             }
+
+            for (int i = maxLevel; i > 0; i--)
+            {
+                stringBuilder.Append("[]");
+
+                for (int j = 0; j < count; j++)
+                {
+                    if (heights[j] >= i)
+                    {
+                        stringBuilder.Append("-" + items[j].ToString() + "-");
+                    }
+                    else
+                    {
+                        stringBuilder.Append(new String('-', lengths[j] + 2));
+                    }
+                }
+                stringBuilder.Append("[]\n");
+            }
+
+            Console.Write(stringBuilder);
+
         }
     }
 

@@ -6,35 +6,25 @@ namespace skip_list_example
     {
         static void Main(string[] args)
         {
-            SkipList skipList = new SkipList(10);
 
+            //SkipListTest.Run();
 
-            // testing the methods
-            Console.WriteLine("Testing SkipList methods:\n");
+            RunConsoleDemo();
+
+        }
+
+        static void RunConsoleDemo()
+        {
             Random r = new Random();
+            SkipListConsoleOutput demoList = new SkipListConsoleOutput(16);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 50; i++)
             {
-                int insertValue = r.Next(0, 10);
-
-                Console.WriteLine("Inserting {0}...", insertValue);
-                skipList.Insert(insertValue);
-
-                int searchValue = r.Next(0, 10);
-
-                Console.WriteLine("Search {0} returned: {1}", searchValue, skipList.Search(searchValue));
-
-                int deleteValue = r.Next(0,10);
-
-                Console.WriteLine("Deleting {0}...", deleteValue);
-                skipList.Delete(deleteValue);
-
-                Console.WriteLine();
+                demoList.Insert(r.Next(0, 100));
             }
 
-            // printing the list out
-            skipList.PrintList();
+            demoList.PrintGraphicalList();
         }
-    }
 
+    }
 }
