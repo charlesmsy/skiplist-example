@@ -29,9 +29,6 @@ namespace skip_list_example
 
                 Console.WriteLine();
             }
-
-            // printing the list out
-            skipList.PrintListContents();
         }
     }
 }

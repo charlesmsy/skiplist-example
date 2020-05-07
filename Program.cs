@@ -7,24 +7,19 @@ namespace skip_list_example
         static void Main(string[] args)
         {
 
-            //SkipListTest.Run();
+            int[] arr = new int[] { 0, 8, 12, 2, 5 };
 
-            RunConsoleDemo();
+            SkipListConsoleOutput skipList = new SkipListConsoleOutput(5);
 
-        }
-
-        static void RunConsoleDemo()
-        {
-            Random r = new Random();
-            SkipListConsoleOutput demoList = new SkipListConsoleOutput(16);
-
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                demoList.Insert(r.Next(0, 100));
+                skipList.Insert(arr[i]);
             }
 
-            demoList.PrintGraphicalList();
-        }
+            skipList.Search(5);
 
+            skipList.Delete(8);
+
+        }
     }
 }
